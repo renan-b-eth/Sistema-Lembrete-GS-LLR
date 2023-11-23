@@ -76,7 +76,7 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 	
 	public void abrirLink(String numero) {
 		try {
-			URI link1 = new URI("www.wa.me/55" + numero);
+			URI link1 = new URI("https://api.whatsapp.com/send?phone="+numero+"&text=Ol%C3%A1,%20sua%20consulta%20est%C3%A1%20marcada.%0A%0AEm%2024%20horas%20antes%20da%20sua%20consulta%20te%20lembraremos.");
 			Desktop.getDesktop().browse(link1);
 		} catch (Exception e) {
 			System.out.println("Deu o seguinte erro: "+e);
@@ -154,8 +154,6 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		if(e.getSource() == btnAtivarLembrete) {
 			numero = JOptionPane.showInputDialog("Digite seu número de whatsapp no padrão (xx) 9yyyy-yyyy:");
 			// validação para não por nada na tela se o valor for vazio
-			
-		
 			
 			if(numero!=null) {
 				criarSubLabel(lblAviso, "Por onde deseja receber o lembrete?", getX()-80, getY(), 300, 100, 13);
