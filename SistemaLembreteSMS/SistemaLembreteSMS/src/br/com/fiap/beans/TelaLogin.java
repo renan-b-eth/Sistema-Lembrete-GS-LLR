@@ -24,7 +24,7 @@ public class TelaLogin extends JFrame implements ActionListener, KeyListener{
 	private String loginPadrao = "admin", senhaPadrao = "admin";
 	private JTextField txtLogin, lblSenha;
 	private JButton lblEntrar;
-	//private ImageIcon imagem = new ImageIcon(getClass().getResource("..//..//..//Imagens//logoNotre.png"));
+	//private ImageIcon imagem = new ImageIcon(getClass().getResource("..//..//Imagens//logohap.png"));
 	//private JLabel lblLogo = new JLabel(imagem);
 
 	public TelaLogin() {

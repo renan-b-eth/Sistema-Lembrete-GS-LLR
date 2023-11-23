@@ -39,6 +39,8 @@ public class TelaOpcoes extends JFrame implements KeyListener, ActionListener{
 	
 	
 	public TelaOpcoes() {
+		
+	
 		setTitle("Login - Sistema de SMS");
 		setSize(500,500);
 		setVisible(true);
