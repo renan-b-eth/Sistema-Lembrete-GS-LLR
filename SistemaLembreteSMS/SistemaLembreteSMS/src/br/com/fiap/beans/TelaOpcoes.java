@@ -52,11 +52,11 @@ public class TelaOpcoes extends JFrame implements KeyListener, ActionListener{
 		btnVacinacao = new JButton("Vacinacao");	
 		criarBotao(btnVacinacao, 30, 150, 130, 130, 15);
 		
-		btn2 = new JButton("BTN2");
-		criarBotao(btn2, 180, 150, 130, 130, 15);
+		btn2 = new JButton("Marcar consulta");
+		criarBotao(btn2, 180, 150, 130, 130, 12);
 		
-		btn3 = new JButton("BTN3");
-		criarBotao(btn3, 330, 150, 130, 130, 15);
+		btn3 = new JButton("Solicitar Exame");
+		criarBotao(btn3, 330, 150, 130, 130, 12);
 		
 		
 		btnSair = new JButton("SAIR");
@@ -76,6 +76,16 @@ public class TelaOpcoes extends JFrame implements KeyListener, ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
+		if(e.getSource() == btnVacinacao) {
+			new TelaVacinacao();
+			setVisible(false);
+		}
+		
+		if(e.getSource() == btn2) {
+			new TelaConsulta();
+			setVisible(false);
+		}
+		
 		if(e.getSource() == btnVacinacao) {
 			new TelaVacinacao();
 			setVisible(false);
