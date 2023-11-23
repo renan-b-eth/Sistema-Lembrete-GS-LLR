@@ -53,7 +53,7 @@ public class TelaLogin extends JFrame implements ActionListener, KeyListener{
 		lblEntrar.addActionListener(this); // coloca ação no botão no evento actionListener
 		lblEntrar.setFont(new Font("Arial", Font.BOLD, 20));
 		lblEntrar.setForeground(new Color(20,20,20));
-		lblEntrar.setBackground(new Color(32, 198, 122));
+		lblEntrar.setBackground(new Color(205, 170, 100));
 		
 		//lblLogo.setVisible(true);
 		//lblLogo.setBounds(0,10,205,170);
