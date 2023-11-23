@@ -12,6 +12,7 @@ import java.net.URI;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class TelaPrincipal extends JFrame implements ActionListener, KeyListener {
 	
@@ -25,7 +26,11 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 	JLabel lblAviso, lblTelefone;
 	
 	int distanciaLabel= 30, r=0, g=0, b=0;
-	String textoBotao = "Ativar Lembrete";
+	String textoBotao = "Ativar Lembrete", numero;
+	
+	
+
+	
 	
 	// metodo criar as label
 	
@@ -69,13 +74,28 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 	
 	// Abrir link na web
 	
-	public void abrirLink() {
+	public void abrirLink(String numero) {
 		try {
-			URI link1 = new URI("www.wa.me/55");
+			URI link1 = new URI("www.wa.me/55" + numero);
 			Desktop.getDesktop().browse(link1);
 		} catch (Exception e) {
 			System.out.println("Deu o seguinte erro: "+e);
 		}
+	}
+	
+	
+	//metodo que deixa apenas numeros de uma string
+	public String deixarNumeros(String n) {
+		 StringBuffer sb = new StringBuffer();
+
+		    char [] caracteres = n.toCharArray();
+
+		    for (Character caracter : caracteres) {
+		        if (Character.isDigit(caracter)) {
+		            sb.append(caracter);
+		        }
+		    }
+		return sb.toString();
 	}
 	
 	public TelaPrincipal() {
@@ -107,8 +127,9 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		
 		// coloca ação no botão no evento actionListener
 		btnAtivarLembrete.addActionListener(this); 
+		btnWhatsapp.addActionListener(this);
 		
-		
+		System.out.println("oi" + "oi2");
 		
 		add(lblSubTextoVacinacao);
 		add(lblTextoVacinacao);
@@ -122,11 +143,30 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		criarSubLabel(lblAviso, "Por onde deseja receber o lembrete?", getX()-80, getY(), 300, 100, 13);
-		criarSubLabel2(lblTelefone, "(11) 9999-9999", getX()-20, getY()+20, 300, 100, 13);
-		criarBotao(btnWhatsapp,300,getY()+90,50,50, 12);
-		criarBotao(btnSms,400,getY()+90,50,50, 12);
-		abrirLink();
+		//set o botão for o whatsapp
+		if(e.getSource() == btnWhatsapp) {
+			JOptionPane.showMessageDialog(null, "Lembrete Ativado!! Vamos te direcionar para o whatsapp.");
+			abrirLink(deixarNumeros(numero));
+		}
+		
+		// digitar o numero
+		
+		if(e.getSource() == btnAtivarLembrete) {
+			numero = JOptionPane.showInputDialog("Digite seu número de whatsapp no padrão (xx) 9yyyy-yyyy:");
+			// validação para não por nada na tela se o valor for vazio
+			
+		
+			
+			if(numero!=null) {
+				criarSubLabel(lblAviso, "Por onde deseja receber o lembrete?", getX()-80, getY(), 300, 100, 13);
+				criarSubLabel2(lblTelefone, numero, getX()-20, getY()+20, 300, 100, 13);
+				criarBotao(btnWhatsapp,300,getY()+90,50,50, 12);
+				criarBotao(btnSms,400,getY()+90,50,50, 12);
+			}
+		}
+		//evento padrão do botão
+		
+		
 	}
 
 	@Override
