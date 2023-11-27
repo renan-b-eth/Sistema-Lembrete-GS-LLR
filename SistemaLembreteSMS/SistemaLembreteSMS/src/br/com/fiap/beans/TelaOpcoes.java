@@ -8,7 +8,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 
 public class TelaOpcoes extends JFrame implements KeyListener, ActionListener{
 	
@@ -86,8 +91,8 @@ public class TelaOpcoes extends JFrame implements KeyListener, ActionListener{
 			setVisible(false);
 		}
 		
-		if(e.getSource() == btnVacinacao) {
-			new TelaVacinacao();
+		if(e.getSource() == btn3) {
+			new TelaSolicitarExame();
 			setVisible(false);
 		}
 		

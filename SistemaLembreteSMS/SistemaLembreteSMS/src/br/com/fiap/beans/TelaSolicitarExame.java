@@ -1,6 +1,7 @@
 package br.com.fiap.beans;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -10,12 +11,14 @@ import java.awt.event.KeyListener;
 import java.net.URI;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class TelaConsulta extends JFrame implements ActionListener, KeyListener {
+public class TelaSolicitarExame extends JFrame implements ActionListener, KeyListener {
 	
 	/**
 	 * 
@@ -23,12 +26,15 @@ public class TelaConsulta extends JFrame implements ActionListener, KeyListener 
 	private static final long serialVersionUID = 1L;
 	JLabel lblTextoTeleMedi, lblTextoVacinacao, lblTextoMaraConsulta, lblTextoExames;
 	JLabel lblSubTextoTeleMedi, lblSubTextoVacinacao, lblSubTextoMaraConsulta, lblSubTextoExames;
-	JButton btnAtivarLembrete, btnWhatsapp, btnSms, btnVoltar, btnMarcar;
+	JButton btnAtivarLembrete, btnWhatsapp, btnSms, btnVoltar, btnMarcar,btnOk2;
 	JLabel lblAviso, lblTelefone, lblOk, lblConsulta;
+	JOptionPane job;
+	JDialog diag;
 	
 	JTextField txtNomePaciente;
 	
 	String numeroPadrao = "551151998891";
+	String[] medico = {"Joao", "Joaquim", "Juarez"};
 	
 	
 	int distanciaLabel= 30, r=0, g=0, b=0;
@@ -41,7 +47,6 @@ public class TelaConsulta extends JFrame implements ActionListener, KeyListener 
 	// metodo criar as label
 	
 	public JLabel criarLabel(JLabel lbl, String texto, int x, int y, int w, int h, int tamanhoFonte) {
-		
 		lbl.setText(texto);
 		lbl.setBounds(x,y,w,h);
 		lbl.setFont(new Font("Urbanist", Font.BOLD, tamanhoFonte));
@@ -131,7 +136,41 @@ public class TelaConsulta extends JFrame implements ActionListener, KeyListener 
 		return sb.toString();
 	}
 	
-	public TelaConsulta() {
+	public void criarComboBox() {
+
+        
+        @SuppressWarnings("unchecked")
+		JComboBox jcd = new JComboBox(medico);
+        btnOk2 = new JButton("Solicitar Protocolo");
+        
+        
+        jcd.setEditable(true);
+
+        //Criar o JOptionPane
+        Object[] options = new Object[] {};
+        Container jop = new JOptionPane("Selecione O Médico",
+                                        JOptionPane.QUESTION_MESSAGE,
+                                        JOptionPane.DEFAULT_OPTION,
+                                        null,options, null);
+
+        //add combos no JOptionPane
+        jop.add(jcd);
+        jop.add(btnOk2);
+
+
+        //Criar o jdialog e add no joptionpane
+        diag = new JDialog();
+        diag.getContentPane().add(jop);
+
+        diag.pack();
+        diag.setVisible(true);
+        
+        //evento no botao solicitar protocolo
+        btnOk2.addActionListener(this);
+    }
+	
+	
+	public TelaSolicitarExame() {
 		
 		setTitle("Sistema de SMS");
 		setSize(650,500);
@@ -153,8 +192,8 @@ public class TelaConsulta extends JFrame implements ActionListener, KeyListener 
 		btnSms = new JButton();
 		
 		
-		criarLabel(lblTextoVacinacao,"Marcar Consulta", 50, 50, 300, 100, 18);
-		criarSubLabel(lblSubTextoVacinacao, "Buscar na rede credenciada", 50, getY()-distanciaLabel, 300, 100, 13);
+		criarLabel(lblTextoVacinacao,"Solicitar Exames", 50, 50, 300, 100, 18);
+		criarSubLabel(lblSubTextoVacinacao, "Protocolo de agendamento", 50, getY()-distanciaLabel, 300, 100, 13);
 		criarBotao(btnAtivarLembrete,300,100,150,50, 12);
 		
 		lblOk = new JLabel();
@@ -168,7 +207,7 @@ public class TelaConsulta extends JFrame implements ActionListener, KeyListener 
 		//txtNomePaciente = new JTextField(); quando eu adiciono some alguns componentes da tela
 		//criarTextField(txtNomePaciente, "Digite o nome do paciente:", 100, 100, 300, 50, 10);
 		
-		btnMarcar = new JButton("Marcar Consulta");
+		btnMarcar = new JButton("Solicitar Exame");
 		criarBotao(btnMarcar,50,200,150,50, 12);
 		btnMarcar.setBackground(new Color(153, 255, 153));
 		
@@ -181,6 +220,7 @@ public class TelaConsulta extends JFrame implements ActionListener, KeyListener 
 		btnWhatsapp.addActionListener(this);
 		btnVoltar.addActionListener(this);
 		btnMarcar.addActionListener(this);
+		
 		
 		
 		add(lblSubTextoVacinacao);
@@ -230,15 +270,16 @@ public class TelaConsulta extends JFrame implements ActionListener, KeyListener 
 		}
 		
 		if(e.getSource() == btnMarcar) {
-			String nomePaciente = JOptionPane.showInputDialog("Digite o nome do Paciente: ");
-			String nomeMedico = JOptionPane.showInputDialog("Digite o nome do médico: ");
-			String data = JOptionPane.showInputDialog("Digite a data da consulta: ");
-			String horarioConsulta = JOptionPane.showInputDialog("Digite o Horario da Consulta");
-			lblConsulta.setVisible(true);
-			JOptionPane.showMessageDialog(null, "Consulta Marcada para: " + nomePaciente + "\n com o Médico: " + nomeMedico + "\n na data: " + data + "\n no horario: " + horarioConsulta + "\n Clique no ativar lembrete para te direcionar para o whatsapp.");
-			abrirLink(deixarNumeros(numeroPadrao)); // numeroPadrao Da String
+			criarComboBox();
+			
 		}
-		
+		//solicitar protocolo
+		if(e.getSource() == btnOk2) {
+			System.out.println("cliquei");
+			diag.setVisible(false); // deixa o joption panel falso
+			String nomeMedico = medico[0];
+			System.out.println(nomeMedico);
+		}
 		
 		//evento padrão do botão
 		
