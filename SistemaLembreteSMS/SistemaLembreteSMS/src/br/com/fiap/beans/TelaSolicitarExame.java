@@ -26,15 +26,17 @@ public class TelaSolicitarExame extends JFrame implements ActionListener, KeyLis
 	private static final long serialVersionUID = 1L;
 	JLabel lblTextoTeleMedi, lblTextoVacinacao, lblTextoMaraConsulta, lblTextoExames;
 	JLabel lblSubTextoTeleMedi, lblSubTextoVacinacao, lblSubTextoMaraConsulta, lblSubTextoExames;
-	JButton btnAtivarLembrete, btnWhatsapp, btnSms, btnVoltar, btnMarcar,btnOk2;
+	JButton btnAtivarLembrete, btnWhatsapp, btnSms, btnVoltar, btnMarcar,btnOk2, btnOk3;
 	JLabel lblAviso, lblTelefone, lblOk, lblConsulta;
 	JOptionPane job;
-	JDialog diag;
+	JDialog diag, diag2;
 	
 	JTextField txtNomePaciente;
 	
-	String numeroPadrao = "551151998891";
+	
+	String numeroPadrao = "551151998891", protocoloPadrao= "001545677";
 	String[] medico = {"Joao", "Joaquim", "Juarez"};
+	String[] paciente = {"Maria", "Joaquina", "Renata"};
 	
 	
 	int distanciaLabel= 30, r=0, g=0, b=0;
@@ -141,7 +143,7 @@ public class TelaSolicitarExame extends JFrame implements ActionListener, KeyLis
         
         @SuppressWarnings("unchecked")
 		JComboBox jcd = new JComboBox(medico);
-        btnOk2 = new JButton("Solicitar Protocolo");
+        btnOk2 = new JButton("Escolher paciente do médico: ");
         
         
         jcd.setEditable(true);
@@ -169,6 +171,38 @@ public class TelaSolicitarExame extends JFrame implements ActionListener, KeyLis
         btnOk2.addActionListener(this);
     }
 	
+	public void criarComboBoxPaciente() {
+
+        
+        @SuppressWarnings("unchecked")
+		JComboBox jcd = new JComboBox(paciente);
+        btnOk3 = new JButton("Solicitar Protocolo");
+        
+        
+        jcd.setEditable(true);
+
+        //Criar o JOptionPane
+        Object[] options = new Object[] {};
+        Container jop = new JOptionPane("Paciente",
+                                        JOptionPane.QUESTION_MESSAGE,
+                                        JOptionPane.DEFAULT_OPTION,
+                                        null,options, null);
+
+        //add combos no JOptionPane
+        jop.add(jcd);
+        jop.add(btnOk3);
+
+
+        //Criar o jdialog e add no joptionpane
+        diag2 = new JDialog();
+        diag2.getContentPane().add(jop);
+
+        diag2.pack();
+        diag2.setVisible(true);
+        
+        //evento no botao solicitar protocolo
+        btnOk3.addActionListener(this);
+    }
 	
 	public TelaSolicitarExame() {
 		
@@ -273,12 +307,17 @@ public class TelaSolicitarExame extends JFrame implements ActionListener, KeyLis
 			criarComboBox();
 			
 		}
-		//solicitar protocolo
 		if(e.getSource() == btnOk2) {
-			System.out.println("cliquei");
+			criarComboBoxPaciente();
+			diag.setVisible(false);
+		}
+		//solicitar protocolo
+		if(e.getSource() == btnOk3) {
 			diag.setVisible(false); // deixa o joption panel falso
-			String nomeMedico = medico[0];
-			System.out.println(nomeMedico);
+			diag2.setVisible(false);
+			String nomeMedico = medico[0]; // aqui deixa o medico padrão porque não consegui pegar o index pra mudar no 0
+			JOptionPane.showMessageDialog(null, "Exame Solicitado: " + "\n com o Médico: " + nomeMedico + "\n Protocolo: " + protocoloPadrao + "\n Clique no ativar lembrete para te direcionar para o whatsapp.");
+			abrirLink(deixarNumeros(numeroPadrao)); // numeroPadrao Da String
 		}
 		
 		//evento padrão do botão
