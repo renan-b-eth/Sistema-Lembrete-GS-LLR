@@ -1,6 +1,8 @@
 package br.com.fiap.beans;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -24,9 +26,24 @@ public class TelaLogin extends JFrame implements ActionListener, KeyListener{
 	private String loginPadrao = "admin", senhaPadrao = "admin";
 	private JTextField txtLogin, lblSenha;
 	private JButton lblEntrar;
-	//private ImageIcon imagem = new ImageIcon(getClass().getResource("..//..//Imagens//logohap.png"));
-	//private JLabel lblLogo = new JLabel(imagem);
+	//private ImageIcon imagem = new ImageIcon(getClass().getResource("..//Imagens//logohap.png"));
+	private Image imagem;
+	
+	public void load() {
+		
+		//ImageIcon objImageIcon = new ImageIcon("Imagens//logohap.png");
+		//imagem = objImageIcon.getImage();
+		
+		
+	}
+	
+	
 
+
+	
+
+	private JLabel lblLogo = new JLabel();
+	
 	public TelaLogin() {
 		
 		setTitle("Login - Sistema de SMS");
@@ -68,6 +85,7 @@ public class TelaLogin extends JFrame implements ActionListener, KeyListener{
 		add(lblSenha);
 		add(txtLogin);
 		//add(lblLogo);
+		//add(imagem);
 		add(lblEntrar);
 		validate();
 		

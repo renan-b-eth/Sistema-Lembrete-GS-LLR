@@ -98,7 +98,7 @@ public class TelaConsulta extends JFrame implements ActionListener, KeyListener 
 		
 		return btn;
 	}
-	
+	// esse metodo não estou usando
 	public JTextField criarTextField(JTextField txt, String texto, int x, int y, int w, int h, int tamanhoFonte) {
 		txt = new JTextField(texto);
 		txt.setBounds(x, y, w, h);

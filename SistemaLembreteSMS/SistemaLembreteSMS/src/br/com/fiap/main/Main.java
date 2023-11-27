@@ -10,7 +10,7 @@ public class Main {
 	
 	/*Projeto desenvolvido por Renan Bezerra, Lucas Alcantara e Larissa Kawaguti*/
 	public static void main(String[] args) {
-		new TelaOpcoes();
+		new TelaLogin();
 	}
 
 	
